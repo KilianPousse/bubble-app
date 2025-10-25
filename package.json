@@ -1,0 +1,16 @@
+{
+  "name": "bubble-app",
+  "version": "1.0.0",
+  "description": "```bash\r npm install express@4.21.2 mongoose@8.10.1 jsonwebtoken@9.0.2 bcryptjs@2.4.3\r npm install dotenv@16.4.7 cookie-parser@1.4.7\r ```",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm install --prefix backend && npm install --prefix frontend && npm run build --prefix frontend",
+    "start": "npm run start --prefix backend"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "backend": "^0.0.0"
+  }
+}
