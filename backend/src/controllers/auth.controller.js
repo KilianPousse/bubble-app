@@ -105,3 +105,7 @@ export const logout = async (req, res) => {
     res.cookie("token", "", { maxAge: 0 });
     res.status(200).json({ message: "Logout successful" });
 };
+
+export const updateProfile = async (req, res) => {
+    // TODO: Implement profile update logic
+};
