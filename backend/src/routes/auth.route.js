@@ -1,4 +1,5 @@
 import express from 'express';
+import { protectRoute } from '../middlewares/auth.middleware.js';
 
 import { signup, login, logout } from '../controllers/auth.controller.js';
 
