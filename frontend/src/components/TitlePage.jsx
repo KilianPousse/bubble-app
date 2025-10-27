@@ -1,15 +1,10 @@
 import { useEffect } from 'react';
 
-let defaultTitle = "Chat App"; 
-
-export function setDefaultTitle(title) {
-    defaultTitle = title;
-    document.title = title;
-}
+let defaultTitle = "Bubble";
 
 function PageTitle({ title }) {
     useEffect(() => {
-        document.title = title ? `${title} - ${defaultTitle}` : defaultTitle;
+        document.title = title ? `${defaultTitle} - ${title}` : defaultTitle;
 
         return () => {
             document.title = defaultTitle;
