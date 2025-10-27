@@ -3,73 +3,75 @@ import bcrypt from 'bcryptjs';
 import { generateToken } from "../lib/utils.js";
 
 export const signup = async (req, res) => {
-  const { username, email, password } = req.body;
+    const { tag, email, password } = req.body;
 
-  try {
-    // Checking mandatory fields
-    if(!username || !email || !password) {
-        return res.status(400).json({ message: "All fields are required" });
-    }
-
-    // Password strength check
-    const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/;
-    if(!passwordRegex.test(password)) {
-        return res.status(400).json({ message: "Password must be at least 8 characters long, contain one uppercase letter and one special character" });
-    }
-
-    // Checking the email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if(!emailRegex.test(email)) {
-        return res.status(400).json({ message: "Invalid email format" });
-    }
-
-    // Checks if a user already exists with the same email or username
-    const existingUser = await User.findOne({
-        $or: [{ email }, { username }],
-    });
-
-    if (existingUser) {
-        if(existingUser.email === email) {
-            return res.status(400).json({ message: "Email already in use" });
+    try {
+        // Checking mandatory fields
+        if(!tag || !email || !password){
+            return res.status(400).json({ message: "All fields are required" });
         }
-        if(existingUser.username === username) {
-            return res.status(400).json({ message: "username already in use" });
+
+        // Tag validation: lowercase letters, digits, underscore, 3-24 chars
+        const tagRegex = /^[a-z0-9_]{3,24}$/;
+        if(!tagRegex.test(tag)){
+            return res.status(400).json({ message: "Tag must be 3-24 characters long and contain only lowercase letters, numbers, or underscore" });
         }
-    }
 
-    // Hashing the password
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
+        // Password strength check
+        const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/;
+        if(!passwordRegex.test(password)){
+            return res.status(400).json({ message: "Password must be at least 8 characters long, contain one uppercase letter and one special character" });
+        }
 
-    // Creating the user
-    const newUser = new User({
-        username,
-        email,
-        password: hashedPassword
-    });
+        // Checking the email format
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if(!emailRegex.test(email)){
+            return res.status(400).json({ message: "Invalid email format" });
+        }
 
-    if(newUser) {
+        // Checks if a user already exists with the same email or tag
+        const existingUser = await User.findOne({
+            $or: [{ email }, { tag }]
+        });
+
+        if(existingUser){
+            if(existingUser.email === email){
+                return res.status(400).json({ message: "Email already in use" });
+            }
+            if(existingUser.tag === tag){
+                return res.status(400).json({ message: "Tag already in use" });
+            }
+        }
+
+        // Hashing the password
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+
+        // Creating the user
+        const newUser = new User({
+            tag,
+            email,
+            password: hashedPassword
+        });
+
         const savedUser = await newUser.save();
         generateToken(savedUser._id, res);
 
-        return res.status(201).json({ 
-            message: "User created successfully", user: {
-            _id: newUser._id,
-            username: newUser.username,
-            email: newUser.email
-        } });
+        return res.status(201).json({
+            message: "User created successfully",
+            user: {
+                _id: savedUser._id,
+                tag: savedUser.tag,
+                email: savedUser.email
+            }
+        });
     }
-    else {
-        console.error(`Error in signup controller : ${error}`);
+    catch(error){
+        console.error("Signup error:", error);
         res.status(500).json({ message: "Server error" });
     }
-
-    
-  }
-  catch(error) {
-    console.error("Signup error:", error);
-  }
 };
+
 
 export const login = async (req, res) => {
     const { email, password } = req.body;
@@ -91,7 +93,7 @@ export const login = async (req, res) => {
         res.status(200).json({ 
             message: "Login successful", user: {
             _id: user._id,
-            username: user.username,
+            tag: user.tag,
             email: user.email
         } });
     } 

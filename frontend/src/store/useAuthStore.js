@@ -27,9 +27,12 @@ export const useAuthStore = create((set, get) => ({
         try {
             const res = await apiClient.post('/auth/signup', data);
             set({ authUser: res.data });
+            
+            toast.dismiss();
             toast.success("Signup successful");
         } 
         catch(error) {
+            toast.dismiss();
             toast.error(error.response.data.message || "Signup failed");
         }
         finally {
@@ -42,9 +45,12 @@ export const useAuthStore = create((set, get) => ({
         try {
             const res = await apiClient.post('/auth/login', data);
             set({ authUser: res.data });
+
+            toast.dismiss();
             toast.success("Login successful");
         } 
         catch(error) {
+            toast.dismiss();
             toast.error(error.response.data.message || "Login failed");
         }
         finally {
@@ -56,9 +62,12 @@ export const useAuthStore = create((set, get) => ({
         try {
             await apiClient.post('/auth/logout');
             set({ authUser: null });
+
+            toast.dismiss();
             toast.success("Logged out successfully");
         }
         catch(error) {
+            toast.dismiss();
             toast.error("Logout failed");
             console.error("Error during logout:", error);
         }

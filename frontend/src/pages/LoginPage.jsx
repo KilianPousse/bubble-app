@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import PageTitle from '../components/TitlePage';
 import { useAuthStore } from '../store/useAuthStore';
+import { EyeIcon, EyeOffIcon } from '../components/icons';
 
 function LoginPage() {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const { login, isLoggingIn } = useAuthStore();
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -27,14 +29,24 @@ function LoginPage() {
           className="w-full p-3 rounded-lg bg-slate-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-sky-500"
         />
 
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={formData.password}
-          onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-          className="w-full p-3 rounded-lg bg-slate-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-sky-500"
-        />
+        {/* Password */}
+        <div className="relative">
+            <input
+                type={showPassword ? 'text' : 'password'}
+                name="password"
+                placeholder="Password"
+                value={formData.password}
+                onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                className="w-full p-3 rounded-lg bg-slate-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-sky-500"
+            />
+            <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-sky-400 transition-colors duration-200"
+            >
+                {showPassword ? <EyeOffIcon size={18} /> : <EyeIcon size={18} />}
+            </button>
+        </div>
 
         <button
           type="submit"

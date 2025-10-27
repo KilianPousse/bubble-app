@@ -30,7 +30,7 @@ function App() {
         <Route path="/signup" element={!authUser ? <SignUpPage/> : <Navigate to={"/"}/>}/>
       </Routes>
 
-      <Toaster position="top-right" reverseOrder={false}/>
+      <Toaster reverseOrder={false}/>
     </div>
   )
 }
