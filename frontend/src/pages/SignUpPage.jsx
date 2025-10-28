@@ -73,41 +73,42 @@ function SignUpPage() {
 
                 {/* Password */}
                 <div className="relative">
-                    <input
-                        type={showPassword ? 'text' : 'password'}
-                        name="password"
-                        placeholder="Password"
-                        value={formData.password}
-                        onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                        className="w-full p-3 rounded-lg bg-slate-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-sky-500"
-                    />
-                    <button
-                        type="button"
-                        onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-sky-400 transition-colors duration-200"
-                    >
-                        {showPassword ? <EyeOffIcon size={18} /> : <EyeIcon size={18} />}
-                    </button>
+                <input
+                    type={showPassword ? 'text' : 'password'}
+                    name="password"
+                    placeholder="Password"
+                    value={formData.password}
+                    onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                    className="w-full p-3 rounded-lg bg-slate-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-sky-500"
+                />
+                <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-sky-400 transition-colors duration-200 p-2.5"
+                >
+                    {showPassword ? <EyeOffIcon size={22} /> : <EyeIcon size={22} />}
+                </button>
                 </div>
 
                 {/* Confirm Password */}
                 <div className="relative">
-                    <input
-                        type={showConfirmPassword ? 'text' : 'password'}
-                        name="confirmPassword"
-                        placeholder="Confirm Password"
-                        value={formData.confirmPassword}
-                        onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
-                        className="w-full p-3 rounded-lg bg-slate-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-sky-500"
-                    />
-                    <button
-                        type="button"
-                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                        className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-sky-400 transition-colors duration-200"
-                    >
-                        {showConfirmPassword ? <EyeOffIcon size={18} /> : <EyeIcon size={18} />}
-                    </button>
+                <input
+                    type={showConfirmPassword ? 'text' : 'password'}
+                    name="confirmPassword"
+                    placeholder="Confirm Password"
+                    value={formData.confirmPassword}
+                    onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
+                    className="w-full p-3 rounded-lg bg-slate-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-sky-500"
+                />
+                <button
+                    type="button"
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-sky-400 transition-colors duration-200 p-2.5"
+                >
+                    {showConfirmPassword ? <EyeOffIcon size={22} /> : <EyeIcon size={22} />}
+                </button>
                 </div>
+
 
                 {passwordError && <p className="text-red-500 text-sm mt-1">{passwordError}</p>}
 
