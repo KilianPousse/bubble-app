@@ -10,8 +10,8 @@ const userSchema = new mongoose.Schema({
     },
     username: {
         type: String,
-        default: null,
-        minlength: 3,
+        default: "",
+        required: false,
         maxlength: 30
     },
     email: {
