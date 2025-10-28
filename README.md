@@ -26,5 +26,5 @@ npm run start
 
 ## Author
 **Kilian Pousse**  
-📧 [kilian.psse@example.com](mailto:kilian.psse@example.com)   
+📧 [kilian.psse@gmail.com](mailto:kilian.psse@gmail.com)   
 🐙 [GitHub](https://github.com/KilianPousse)
