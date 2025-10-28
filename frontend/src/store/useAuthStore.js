@@ -72,4 +72,18 @@ export const useAuthStore = create((set, get) => ({
             console.error("Error during logout:", error);
         }
     },
+
+    updateProfile: async (data) => {
+        try {
+            const res = await apiClient.put("/auth/update-profile", data);
+            set({ authUser: res.data });
+            toast.dismiss();
+            toast.success("Profile updated successfully");
+        }
+        catch(error) {
+            console.error("Error in update profile:", error);
+            toast.dismiss();
+            toast.error(error.response.data.message || "Profile update failed");
+        }
+    },
 }));

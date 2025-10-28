@@ -109,10 +109,10 @@ export const logout = async (_, res) => {
 
 export const updateProfile = async (req, res) => {
     try {
-        const { username, profilePicture, password } = req.body;
+        const { username, avatar, password } = req.body;
 
-        if(!username && !profilePicture && !password) {
-            return res.status(400).json({ message: "Nothing to update" });
+        if(username == null && avatar == null && !password) {
+            return res.status(400).json({ message: "Nothing to update"});
         }
 
         const userId = req.user._id;
@@ -122,30 +122,25 @@ export const updateProfile = async (req, res) => {
 
         const updateFields = {};
 
-        // Username (tag) update + validation + uniqueness check
-        if(username) {
-            const tagRegex = /^[a-z0-9_]{3,24}$/;
-            if(!tagRegex.test(username)) {
-                return res.status(400).json({ message: "Username must be 3-24 characters long and contain only lowercase letters, numbers, or underscore" });
+        // Username update + validation
+        if(username != null) {
+            if(username.length > 64) {
+                return res.status(400).json({ message: "Name must not exceed 64 characters" });
             }
-            const existingTagUser = await User.findOne({ tag: username });
-            if (existingTagUser && existingTagUser._id.toString() !== userId.toString()) {
-                return res.status(400).json({ message: "Username already in use" });
-            }
-            updateFields.tag = username;
+            updateFields.username = username;
         }
 
         // Profile picture update (optional; replace with upload handling if needed)
-        if (profilePicture) {
+        if(avatar != null) {
             // If you're uploading to a service, do that here and set the returned URL:
             // const uploadResponse = await ...;
-            // updateFields.profilePicture = uploadResponse.secure_url;
-            updateFields.profilePicture = profilePicture;
+            // updateFields.avatar = uploadResponse.secure_url;
+            updateFields.avatar = avatar;
         }
 
         // Password update + validation + hashing
         if(password) {
-            const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/;
+            const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>]).{8,64}$/;
             if(!passwordRegex.test(password)) {
                 return res.status(400).json({ message: "Password must be at least 8 characters long, contain one uppercase letter and one special character" });
             }
@@ -164,9 +159,9 @@ export const updateProfile = async (req, res) => {
             message: "Profile updated successfully",
             user: {
                 _id: updatedUser._id,
-                tag: updatedUser.tag,
+                username: updatedUser.username,
                 email: updatedUser.email,
-                profilePicture: updatedUser.profilePicture
+                avatar: updatedUser.avatar
             }
         });
     } catch (error) {

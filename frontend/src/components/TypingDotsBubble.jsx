@@ -5,7 +5,6 @@ function TypingDotsBubble({
   dotColor = "#000",
   size = "md", // "sm" | "md" | "lg"
 }) {
-  // Définition des tailles selon la prop
   const sizeMap = {
     sm: {
       bubblePadding: "px-2 py-1.5",

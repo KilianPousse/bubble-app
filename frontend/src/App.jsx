@@ -6,6 +6,7 @@ import { Toaster } from "react-hot-toast";
 import ChatPage from "./pages/ChatPage";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
+import SettingsPage from "./pages/SettinigsPage";
 import PageLoader from "./components/PageLoader";
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
         <Route path="/" element={authUser ? <ChatPage/> : <Navigate to={"/login"}/>}/>
         <Route path="/login" element={!authUser ? <LoginPage/> : <Navigate to={"/"}/>}/>
         <Route path="/signup" element={!authUser ? <SignUpPage/> : <Navigate to={"/"}/>}/>
+        <Route path="/settings/*" element={authUser ? <SettingsPage/> : <Navigate to={"/login"}/>}/>
       </Routes>
 
       <Toaster reverseOrder={false}/>
