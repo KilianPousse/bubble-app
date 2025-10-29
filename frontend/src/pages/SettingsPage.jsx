@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
     BackIcon,
     UserIcon,
@@ -37,6 +38,8 @@ function SettingsPage() {
     }
   };
 
+  const navigate = useNavigate();
+
   return (
     <div className="flex bg-slate-900 min-h-screen text-white w-full">
         <PageTitle title="Settings"/>
@@ -44,7 +47,7 @@ function SettingsPage() {
         <aside className="fixed top-0 left-0 h-screen w-96 bg-slate-800/60 backdrop-blur-lg p-4 overflow-y-auto flex flex-col shadow-2xl">
         {/* Back Button */}
         <button
-            onClick={() => (window.location.href = '/')}
+            onClick={() => navigate("/")}
             className="flex items-center w-full px-3 py-2 mb-4 rounded-lg text-sm font-medium text-red-500 hover:bg-red-700/30 transition-colors"
         >
             <span className="mr-1"><BackIcon size={18} /></span> Back

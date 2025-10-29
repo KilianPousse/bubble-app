@@ -1,9 +1,12 @@
 import { useAuthStore } from "../store/useAuthStore";
+import { useNavigate } from "react-router-dom";
 import Avatar from "./Avatar";
 import { SettingsIcon, LogoutIcon } from "./icons";
 
 function ProfileBox() {
     const { authUser, logout } = useAuthStore();
+
+    const navigate = useNavigate();
 
     return (
         <div className="border-b border-gray-600/30 backdrop-blur-sm">
@@ -44,7 +47,7 @@ function ProfileBox() {
                         {/* Settings */}
                         <button 
                             className="text-slate-300 hover:text-white hover:bg-blue-500/20 transition-all duration-200 p-2 rounded-xl border border-transparent hover:border-blue-500/30"
-                            onClick={() => (window.location.href = '/settings')}
+                            onClick={() => navigate("/settings")}
                         >
                             <SettingsIcon size={22} />
                         </button>
