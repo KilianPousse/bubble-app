@@ -2,6 +2,7 @@ import { useState } from 'react';
 import PageTitle from '../components/TitlePage';
 import { useAuthStore } from '../store/useAuthStore';
 import { EyeIcon, EyeOffIcon } from '../components/icons';
+import { Link } from "react-router";
 
 function LoginPage() {
   const [formData, setFormData] = useState({ email: '', password: '' });
@@ -47,8 +48,7 @@ function LoginPage() {
           </button>
         </div>
 
-
-
+        {/* Submit Button */}
         <button
           type="submit"
           disabled={isLoggingIn}
@@ -59,7 +59,7 @@ function LoginPage() {
       </form>
 
       <p className="text-center text-slate-300 text-sm mt-4">
-        Don't have an account? <a href="/signup" className="text-sky-400 hover:underline">Sign up</a>
+        Don't have an account? <Link to="/signup" className="text-sky-400 hover:underline">Sign up</Link>
       </p>
     </div>
   );

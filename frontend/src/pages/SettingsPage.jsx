@@ -41,8 +41,8 @@ function SettingsPage() {
     <div className="flex bg-slate-900 min-h-screen text-white w-full">
         <PageTitle title="Settings"/>
         {/* Sidebar */}
-        <aside className="fixed top-0 left-0 h-screen w-96 bg-slate-800/60 backdrop-blur-lg border-r border-slate-700 p-4 overflow-y-auto flex flex-col">
-        {/* Back Bouton */}
+        <aside className="fixed top-0 left-0 h-screen w-96 bg-slate-800/60 backdrop-blur-lg p-4 overflow-y-auto flex flex-col shadow-2xl">
+        {/* Back Button */}
         <button
             onClick={() => (window.location.href = '/')}
             className="flex items-center w-full px-3 py-2 mb-4 rounded-lg text-sm font-medium text-red-500 hover:bg-red-700/30 transition-colors"
@@ -50,7 +50,9 @@ function SettingsPage() {
             <span className="mr-1"><BackIcon size={18} /></span> Back
         </button>
 
-        <h2 className="text-lg font-semibold mb-4 text-white">Settings</h2>
+        <hr className="border-t border-gray-100/20" />
+
+        <h2 className="text-lg font-semibold my-4 text-white">Settings</h2>
 
         <nav className="space-y-1">
             {categories.map((cat) => (
@@ -80,7 +82,7 @@ function SettingsPage() {
                     </h1>
                     
                 </div>
-                <hr className="mb-6"/>
+                <hr className="mb-6 border-t border-gray-100/20" />
                 <div className="m-16">
                     {renderContent()}
                 </div>

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useAuthStore } from '../store/useAuthStore';
 import PageTitle from '../components/TitlePage';
 import { EyeIcon, EyeOffIcon } from '../components/icons';
+import { Link } from "react-router";
 
 function SignUpPage() {
     const [formData, setFormData] = useState({ tag: '', email: '', password: '', confirmPassword: '' });
@@ -122,7 +123,7 @@ function SignUpPage() {
             </form>
 
             <p className="text-center text-slate-300 text-sm mt-4">
-                Already have an account? <a href="/login" className="text-sky-400 hover:underline">Log in</a>
+                Already have an account? <Link to="/login" className="text-sky-400 hover:underline">Log in</Link>
             </p>
         </div>
     );

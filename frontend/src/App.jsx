@@ -20,16 +20,16 @@ function App() {
   console.log("Auth User:", authUser);
 
   if(isCheckingAuth) return <PageLoader/>;
-  
+
   return (
     <div className="min-h-screen bg-slate-900 relative items-center flex
-     justify-center p-4 overflow-hidden">
+     justify-center overflow-hidden">
 
       <Routes>
         <Route path="/" element={authUser ? <ChatPage/> : <Navigate to={"/login"}/>}/>
         <Route path="/login" element={!authUser ? <LoginPage/> : <Navigate to={"/"}/>}/>
         <Route path="/signup" element={!authUser ? <SignUpPage/> : <Navigate to={"/"}/>}/>
-        <Route path="/settings/*" element={authUser ? <SettingsPage/> : <Navigate to={"/login"}/>}/>
+        <Route path="/settings/" element={authUser ? <SettingsPage/> : <Navigate to={"/login"}/>}/>
       </Routes>
 
       <Toaster reverseOrder={false}/>

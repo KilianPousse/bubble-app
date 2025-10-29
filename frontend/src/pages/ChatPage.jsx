@@ -1,20 +1,16 @@
 import PageTitle from "../components/TitlePage";
-import { useAuthStore } from "../store/useAuthStore";
 
+import ProfileBox from "../components/ProfileBox";
 
 function ChatPage() {
-    const logout = useAuthStore((state) => state.logout);
-
     return (
-        <div className="p-4">
+        <div className="relative w-full h-full">
             <PageTitle title="Chat" />
-            <h1 className="text-white text-2xl mb-4">Chat Page</h1>
-            <button 
-                onClick={logout}
-                className="mt-4 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
-            >
-                Logout
-            </button>
+
+            {/* Sidebar */}
+            <aside className="fixed top-0 left-0 h-screen w-96 bg-slate-800/60 backdrop-blur-lg overflow-y-auto flex flex-col shadow-2xl">
+                <ProfileBox />
+            </aside>
         </div>
     );
 }
