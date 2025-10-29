@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useAuthStore } from "../../store/useAuthStore";
+import Avatar from "../Avatar";
 
 function UserSettings() {
     const { authUser, updateProfile } = useAuthStore();
@@ -18,6 +19,35 @@ function UserSettings() {
         }
     };
 
+    const handleAvatarUpload = (e) => {
+        e.preventDefault();
+
+        const fileInput = document.createElement("input");
+        fileInput.type = "file";
+        fileInput.accept = "image/png, image/jpeg, image/webp"; 
+
+        fileInput.onchange = async () => {
+            const file = fileInput.files[0];
+            if(!file) return;
+
+            const maxSizeMB = 2;
+            if(file.size > maxSizeMB * 1024 * 1024) {
+                alert(`File is too large. Max size is ${maxSizeMB}MB`);
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onloadend = async () => {
+                const base64Image = reader.result;
+                updateProfile({ avatar: base64Image });
+            };
+        };
+
+        fileInput.click();
+    };
+
+
     const handlePasswordUpdate = (e) => {
         e.preventDefault();
 
@@ -27,6 +57,11 @@ function UserSettings() {
         }
 
         updateProfile({ password: password });
+    };
+
+    const handleAvatarRemove = (e) => {
+        e.preventDefault();
+        updateProfile({ avatar: "" });
     };
 
     return (
@@ -56,14 +91,18 @@ function UserSettings() {
             <div className="bg-slate-800/50 rounded-lg p-6">
                 <h2 className="text-xl font-semibold text-white mb-4">Avatar</h2>
                 <div className="flex items-center space-x-6">
-                    <div className="w-20 h-20 bg-slate-600 rounded-full flex items-center justify-center">
-                        <span className="text-slate-300 text-lg">U</span>
-                    </div>
+                    <Avatar size={100} user={authUser.user} />
                     <div className="flex space-x-3">
-                        <button className="px-4 py-2 bg-sky-500 hover:bg-sky-600 text-white font-medium rounded-lg transition-colors">
+                        <button 
+                            className="px-4 py-2 bg-sky-500 hover:bg-sky-600 text-white font-medium rounded-lg transition-colors"
+                            onClick={handleAvatarUpload}
+                        >
                             Upload New
                         </button>
-                        <button className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white font-medium rounded-lg transition-colors">
+                        <button 
+                            className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white font-medium rounded-lg transition-colors"
+                            onClick={handleAvatarRemove}
+                        >
                             Remove
                         </button>
                     </div>

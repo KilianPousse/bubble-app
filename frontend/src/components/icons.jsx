@@ -1,3 +1,5 @@
+import { color } from "framer-motion";
+
 export const EyeIcon = ({ size = 24, color = 'currentColor' }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -149,3 +151,33 @@ export const BackIcon = ({ size = 24, color = 'currentColor' }) => (
     />
   </svg>
 );
+
+export const AvatarIcon = ({
+  size = 24,
+  color = 'currentColor',
+  backgroundColor = '#E0E0E0',
+}) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width={size}
+    height={size}
+    strokeWidth={1.5}
+    stroke={color}
+  >
+    <path
+      d="M 18.553538,19.28009 C 25.327821,13.326097 21.064813,2.2569506 12,2.2569506 c -9.0648127,0 -13.3278217,11.0691464 -6.5535385,17.0231394 m 13.1070765,0 c -1.80339,1.589473 -4.13643,2.466348 -6.552991,2.462948 -2.4169372,0.0037 -4.7504131,-0.873226 -6.5540855,-2.462948"
+      fill={backgroundColor}
+      stroke="none"
+    />
+
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      fill="none"
+      transform="translate(1.8, 1.8) scale(0.85)"
+      d="m 17.982,16.852115 c -1.41658,-1.87555 -3.6316,-2.977135 -5.982,-2.975 -2.3504001,-0.0021 -4.5654192,1.09945 -5.9820002,2.975 m 11.9630002,0 c -3.396844,3.029918 -8.5664052,3.029697 -11.9630002,0 M 15,7.8771144 c 0,3.9999986 -6.0000002,3.9999986 -6.0000002,0 0,-3.999998 6.0000002,-3.999998 6.0000002,0 z"
+    />
+  </svg>
+);
+

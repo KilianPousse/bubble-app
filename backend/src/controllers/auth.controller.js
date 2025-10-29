@@ -1,6 +1,7 @@
 import User from "../models/User.js";
 import bcrypt from 'bcryptjs';
 import { generateToken } from "../lib/utils.js";
+import cloudinary from "../lib/cloudinary.js";
 
 export const signup = async (req, res) => {
     const { tag, email, password } = req.body;
@@ -130,12 +131,15 @@ export const updateProfile = async (req, res) => {
             updateFields.username = username;
         }
 
-        // Profile picture update (optional; replace with upload handling if needed)
+        // Avatar update
         if(avatar != null) {
-            // If you're uploading to a service, do that here and set the returned URL:
-            // const uploadResponse = await ...;
-            // updateFields.avatar = uploadResponse.secure_url;
-            updateFields.avatar = avatar;
+            if(avatar === "") {
+                updateFields.avatar = "";
+            }
+            else {
+                const uploadAvatar = await cloudinary.uploader.upload(avatar);
+                updateFields.avatar = uploadAvatar.secure_url;
+            }
         }
 
         // Password update + validation + hashing
