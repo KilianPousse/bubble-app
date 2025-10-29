@@ -94,7 +94,8 @@ export const login = async (req, res) => {
             message: "Login successful", user: {
             _id: user._id,
             tag: user.tag,
-            email: user.email
+            email: user.email,
+            avatar: user.avatar,
         } });
     } 
     catch(error) {
@@ -163,6 +164,7 @@ export const updateProfile = async (req, res) => {
             message: "Profile updated successfully",
             user: {
                 _id: updatedUser._id,
+                tag: updatedUser.tag,
                 username: updatedUser.username,
                 email: updatedUser.email,
                 avatar: updatedUser.avatar
