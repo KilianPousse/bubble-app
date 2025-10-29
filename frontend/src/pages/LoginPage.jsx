@@ -3,6 +3,7 @@ import PageTitle from '../components/TitlePage';
 import { useAuthStore } from '../store/useAuthStore';
 import { EyeIcon, EyeOffIcon } from '../components/icons';
 import { Link } from "react-router";
+import TypingDots from "../components/TypingDots";
 
 function LoginPage() {
   const [formData, setFormData] = useState({ email: '', password: '' });
@@ -54,7 +55,7 @@ function LoginPage() {
           disabled={isLoggingIn}
           className="w-full bg-sky-500 hover:bg-sky-600 text-white font-medium py-2 rounded-lg transition"
         >
-          Login
+          {isLoggingIn ? (<TypingDots color='white' size={7} />) : "Login"}
         </button>
       </form>
 

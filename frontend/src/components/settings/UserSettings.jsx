@@ -5,6 +5,7 @@ import Avatar from "../Avatar";
 function UserSettings() {
     const { authUser, updateProfile } = useAuthStore();
     const [username, setUsername] = useState(authUser.username);
+    const [bio, setBio] = useState(authUser.bio || "");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [passwordError, setPasswordError] = useState('');
@@ -17,6 +18,11 @@ function UserSettings() {
         else {
             updateProfile({ username: username });
         }
+    };
+
+    const handleBioUpdate = (e) => {
+        e.preventDefault();
+        updateProfile({ bio: bio });
     };
 
     const handleAvatarUpload = (e) => {
@@ -46,7 +52,6 @@ function UserSettings() {
 
         fileInput.click();
     };
-
 
     const handlePasswordUpdate = (e) => {
         e.preventDefault();
@@ -104,6 +109,35 @@ function UserSettings() {
                             onClick={handleAvatarRemove}
                         >
                             Remove
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            {/* Bio Section */}
+            <div className="bg-slate-800/50 rounded-lg p-6">
+                <h2 className="text-xl font-semibold text-white mb-4">Bio</h2>
+                <div className="space-y-3">
+                    <div className="relative">
+                        <textarea
+                            name="bio"
+                            value={bio}
+                            onChange={(e) => setBio(e.target.value)}
+                            placeholder="Tell us something about yourself..."
+                            maxLength={256}
+                            rows={4}
+                            className="w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent resize-none"
+                        />
+                        <div className="absolute bottom-2 right-2 text-slate-400 text-sm">
+                            {bio.length}/256
+                        </div>
+                    </div>
+                    <div className="flex justify-end">
+                        <button
+                            className="px-4 py-2 bg-slate-600 hover:bg-slate-500 text-white font-medium rounded-lg transition-colors"
+                            onClick={handleBioUpdate}
+                        >
+                            Update Bio
                         </button>
                     </div>
                 </div>

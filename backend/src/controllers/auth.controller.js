@@ -1,6 +1,6 @@
 import User from "../models/User.js";
 import bcrypt from 'bcryptjs';
-import { generateToken } from "../lib/utils.js";
+import { createJsonResponse, generateToken } from "../lib/utils.js";
 import cloudinary from "../lib/cloudinary.js";
 
 export const signup = async (req, res) => {
@@ -58,14 +58,7 @@ export const signup = async (req, res) => {
         const savedUser = await newUser.save();
         generateToken(savedUser._id, res);
 
-        return res.status(201).json({
-            message: "User created successfully",
-            user: {
-                _id: savedUser._id,
-                tag: savedUser.tag,
-                email: savedUser.email
-            }
-        });
+        return res.status(201).json(createJsonResponse("User created successfully", savedUser));
     }
     catch(error){
         console.error("Signup error:", error);
@@ -90,13 +83,7 @@ export const login = async (req, res) => {
         }
 
         generateToken(user._id, res);
-        res.status(200).json({ 
-            message: "Login successful", user: {
-            _id: user._id,
-            tag: user.tag,
-            email: user.email,
-            avatar: user.avatar,
-        } });
+        res.status(200).json(createJsonResponse("Login successful", user));
     } 
     catch(error) {
         console.error("Login error:", error);
@@ -111,9 +98,9 @@ export const logout = async (_, res) => {
 
 export const updateProfile = async (req, res) => {
     try {
-        const { username, avatar, password } = req.body;
+        const { username, avatar, password, bio } = req.body;
 
-        if(username == null && avatar == null && !password) {
+        if(username == null && avatar == null && !password && bio == null) {
             return res.status(400).json({ message: "Nothing to update"});
         }
 
@@ -154,22 +141,21 @@ export const updateProfile = async (req, res) => {
             updateFields.password = hashedPassword;
         }
 
+        // Bio update + validate
+        if(bio != null) {
+            if(bio.length > 256) {
+                return res.status(400).json({ message: "Bio must not exceed 256 characters" });
+            }
+            updateFields.bio = bio;
+        }
+
         const updatedUser = await User.findByIdAndUpdate(userId, updateFields, { new: true }).select('-password');
 
         if(!updatedUser) {
             return res.status(404).json({ message: "User not found" });
         }
 
-        return res.status(200).json({
-            message: "Profile updated successfully",
-            user: {
-                _id: updatedUser._id,
-                tag: updatedUser.tag,
-                username: updatedUser.username,
-                email: updatedUser.email,
-                avatar: updatedUser.avatar
-            }
-        });
+        return res.status(200).json(createJsonResponse("Profile updated successfully", updatedUser));
     } catch (error) {
         console.error("Error in update profile:", error);
         res.status(500).json({ message: "Internal server error" });

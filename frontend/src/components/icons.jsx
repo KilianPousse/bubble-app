@@ -1,5 +1,7 @@
 // https://heroicons.com/
 
+import { motion } from "framer-motion";
+
 export const EyeIcon = ({ size = 24, color = 'currentColor' }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -196,4 +198,8 @@ export const LogoutIcon = ({ size = 24, color = 'currentColor' }) => (
       d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9"
     />
   </svg>
+);
+
+export const LoaderIcon = () => (
+  <div className="loading w-16 h-16"/>
 );

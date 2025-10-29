@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import TypingDotsBubble from "./TypingDotsBubble";
 import PageTitle from "./TitlePage";
+import { LoaderIcon } from "./icons";
 
 function PageLoader() {
   const [dots, setDots] = useState(0);
@@ -16,7 +16,7 @@ function PageLoader() {
   return (
     <div className="flex flex-col items-center justify-center bg-slate-900 h-screen">
       <PageTitle title="Loading..."/>
-      <TypingDotsBubble dotColor="#0F172A" size="md"/>
+      <LoaderIcon />
       <br/>
       <p className="w-1/3 text-center text-white">
         Please wait while we load the content for you.

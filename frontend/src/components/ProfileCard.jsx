@@ -59,11 +59,20 @@ function ProfileCard({ user, onClose }) {
 
                     {/* Additional information */}
                     <div className="pt-6 border-t border-gray-600/30 space-y-4">
-                        {/* Email */}
-                        {currentUser.email && (
+                        {/* Bio */}
+                        {currentUser.bio ? (
                             <div className="text-left">
-                                <p className="text-slate-400 text-sm uppercase tracking-wider mb-2 font-semibold">EMAIL</p>
-                                <p className="text-white text-base truncate">{currentUser.email}</p>
+                                <p className="text-slate-400 text-sm uppercase tracking-wider mb-2 font-semibold">BIO</p>
+                                <div className="max-h-20 overflow-y-auto pr-2 custom-scrollbar">
+                                    <p className="text-white text-base break-words whitespace-pre-line">
+                                        {currentUser.bio}
+                                    </p>
+                                </div>
+                            </div>
+                        ) : (
+                            <div className="text-left">
+                                <p className="text-slate-400 text-sm uppercase tracking-wider mb-2 font-semibold">BIO</p>
+                                <p className="text-slate-500 text-base italic">No bio yet</p>
                             </div>
                         )}
 
@@ -86,21 +95,20 @@ function ProfileCard({ user, onClose }) {
                 {/* Buttons */}
                 <div className="flex gap-4 pt-6 w-full">
                     {
-                        authUser === currentUser ?
+                        authUser?.id === currentUser.id ?
                         (
                             <button 
                                 className="w-full bg-sky-500 hover:bg-sky-600 text-white font-medium py-2 rounded-lg transition disabled:opacity-70"
                                 onClick={() => navigate("/settings/user")}
                             >
-                                Edit
+                                Edit Profile
                             </button>
                         ) : (
                             <button 
                                 className="w-full bg-sky-500 hover:bg-sky-600 text-white font-medium py-2 rounded-lg transition disabled:opacity-70"
                             >
-                                Message
+                                Send Message
                             </button>
-
                         )
                     }
                 </div>
@@ -108,4 +116,5 @@ function ProfileCard({ user, onClose }) {
         </div>
     );
 }
+
 export default ProfileCard;

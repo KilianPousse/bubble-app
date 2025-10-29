@@ -3,6 +3,7 @@ import { useAuthStore } from '../store/useAuthStore';
 import PageTitle from '../components/TitlePage';
 import { EyeIcon, EyeOffIcon } from '../components/icons';
 import { Link } from "react-router";
+import TypingDots from "../components/TypingDots";
 
 function SignUpPage() {
     const [formData, setFormData] = useState({ tag: '', email: '', password: '', confirmPassword: '' });
@@ -118,7 +119,7 @@ function SignUpPage() {
                     disabled={isSigningUp}
                     className="w-full bg-sky-500 hover:bg-sky-600 text-white font-medium py-2 rounded-lg transition disabled:opacity-70"
                 >
-                    {isSigningUp ? 'Creation in progress...' : "Sign Up"}
+                    {isSigningUp ? (<TypingDots color='white' size={7} />) : "Sign Up"}
                 </button>
             </form>
 

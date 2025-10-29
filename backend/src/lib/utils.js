@@ -20,3 +20,18 @@ export const generateToken = (userId, res) => {
 
     return token;
 };
+
+export const createJsonResponse = (message, user) => {
+    return {
+        message: message,
+        user: {
+            _id: user._id,
+            tag: user.tag,
+            username: user.username,
+            email: user.email,
+            avatar: user.avatar,
+            bio: user.bio,
+            createdAt: user.createdAt,
+        },
+    };
+}
