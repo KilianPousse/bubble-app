@@ -4,7 +4,7 @@ import Avatar from "../Avatar";
 
 function UserSettings() {
     const { authUser, updateProfile } = useAuthStore();
-    const [username, setUsername] = useState(authUser.user.username);
+    const [username, setUsername] = useState(authUser.username);
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [passwordError, setPasswordError] = useState('');
@@ -91,7 +91,7 @@ function UserSettings() {
             <div className="bg-slate-800/50 rounded-lg p-6">
                 <h2 className="text-xl font-semibold text-white mb-4">Avatar</h2>
                 <div className="flex items-center space-x-6">
-                    <Avatar size={100} user={authUser.user} />
+                    <Avatar size={100} user={authUser} />
                     <div className="flex space-x-3">
                         <button 
                             className="px-4 py-2 bg-sky-500 hover:bg-sky-600 text-white font-medium rounded-lg transition-colors"
