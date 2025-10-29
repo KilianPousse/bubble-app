@@ -7,7 +7,10 @@ import {
     SettingsIcon,
 } from "../components/icons";
 import PageTitle from "../components/TitlePage";
+import GeneralSettings from "../components/settings/GeneralSettings";
 import UserSettings from "../components/settings/UserSettings";
+import SecuritySettings from "../components/settings/SecuritySettings";
+import NotificationsSettings from "../components/settings/NotificationsSettings";
 
 const categories = [
   { id: "general", label: "General", icon: <SettingsIcon size={18} /> },
@@ -22,13 +25,13 @@ function SettingsPage() {
   const renderContent = () => {
     switch(activeCategory) {
       case "general":
-        return <div></div>;
+        return <GeneralSettings />;
       case "user":
         return <UserSettings />;
       case "security":
-        return <div></div>;
+        return <SecuritySettings />;
       case "notifications":
-        return <div></div>;
+        return <NotificationsSettings />;
       default:
         return ;
     }

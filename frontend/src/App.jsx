@@ -6,7 +6,7 @@ import { Toaster } from "react-hot-toast";
 import ChatPage from "./pages/ChatPage";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
-import SettingsPage from "./pages/SettinigsPage";
+import SettingsPage from "./pages/SettingsPage";
 import PageLoader from "./components/PageLoader";
 
 function App() {
