@@ -21,7 +21,7 @@ export const generateToken = (userId, res) => {
     return token;
 };
 
-export const createJsonResponse = (message, user) => {
+export const createJsonUserResponse = (message, user) => {
     return {
         message: message,
         user: {

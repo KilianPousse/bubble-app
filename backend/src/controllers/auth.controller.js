@@ -1,6 +1,6 @@
 import User from "../models/User.js";
 import bcrypt from 'bcryptjs';
-import { createJsonResponse, generateToken } from "../lib/utils.js";
+import { createJsonUserResponse, generateToken } from "../lib/utils.js";
 import cloudinary from "../lib/cloudinary.js";
 
 export const signup = async (req, res) => {
@@ -58,7 +58,7 @@ export const signup = async (req, res) => {
         const savedUser = await newUser.save();
         generateToken(savedUser._id, res);
 
-        return res.status(201).json(createJsonResponse("User created successfully", savedUser));
+        return res.status(201).json(createJsonUserResponse("User created successfully", savedUser));
     }
     catch(error){
         console.error("Signup error:", error);
@@ -83,7 +83,7 @@ export const login = async (req, res) => {
         }
 
         generateToken(user._id, res);
-        res.status(200).json(createJsonResponse("Login successful", user));
+        res.status(200).json(createJsonUserResponse("Login successful", user));
     } 
     catch(error) {
         console.error("Login error:", error);
@@ -155,7 +155,7 @@ export const updateProfile = async (req, res) => {
             return res.status(404).json({ message: "User not found" });
         }
 
-        return res.status(200).json(createJsonResponse("Profile updated successfully", updatedUser));
+        return res.status(200).json(createJsonUserResponse("Profile updated successfully", updatedUser));
     } catch (error) {
         console.error("Error in update profile:", error);
         res.status(500).json({ message: "Internal server error" });
