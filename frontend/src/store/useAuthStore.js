@@ -17,7 +17,7 @@ export const useAuthStore = create((set, get) => ({
         try {
             const res = await apiClient.get('/auth/check');
             set({ authUser: res.data.user });
-            // get().connectSocket();
+            get().connectSocket();
         } 
         catch(error) {
             console.error("Error checking auth:", error);
@@ -35,7 +35,7 @@ export const useAuthStore = create((set, get) => ({
             set({ authUser: res.data.user });
             
             toast.success("Signup successful");
-            // get().connectSocket();
+            get().connectSocket();
         } 
         catch(error) {
             toast.error(error.response.data.message || "Signup failed");
@@ -52,7 +52,7 @@ export const useAuthStore = create((set, get) => ({
             set({ authUser: res.data.user });
 
             toast.success("Login successful");
-            // get().connectSocket();
+            get().connectSocket();
         } 
         catch(error) {
             toast.error(error.response.data.message || "Login failed");

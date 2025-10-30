@@ -5,7 +5,7 @@ import { ENV } from "./env.js"
 import { socketAuthMiddlesware } from "../middlewares/socket.auth.middleware.js";
 
 const app = express();
-const server = http.createServer();
+const server = http.createServer(app);
 
 const io = new Server(server, {
     cors: {

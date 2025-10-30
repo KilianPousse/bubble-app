@@ -6,19 +6,12 @@ import AppRouter  from "./router";
 import PageLoader from "./components/PageLoader";
 
 function App() {
-
-  console.log("1");
-
   const { checkAuth, isCheckingAuth, authUser } = useAuthStore();
-  console.log("2");
+  console.log("Auth User:", authUser);
 
   useEffect(() => {
-    console.log("checking...");
     checkAuth();
   }, [checkAuth]);
-  console.log("3");
-
-  console.log("Auth User:", authUser);
 
   if(isCheckingAuth) return <PageLoader/>;
 
