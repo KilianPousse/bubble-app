@@ -7,7 +7,7 @@ export const generateToken = (userId, res) => {
         throw new Error("JWT_SECRET is not defined in environment variables");
     }
 
-    const token = jwt.sign({ id: userId }, JWT_SECRET, {
+    const token = jwt.sign({ userId }, JWT_SECRET, {
         expiresIn: '7d',
     });
 
@@ -21,7 +21,7 @@ export const generateToken = (userId, res) => {
     return token;
 };
 
-export const createJsonResponse = (message, user) => {
+export const createJsonUserResponse = (message, user) => {
     return {
         message: message,
         user: {
