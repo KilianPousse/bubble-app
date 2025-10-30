@@ -23,7 +23,7 @@ export function getReceiverSocketId(userId) {
 }
 
 io.on("connection", (socket) => {
-    console.log(`User @${socket.user.tag} connected`);
+    console.log(`[${new Date().toLocaleString()}] User @${socket.user.tag} connected`);
 
     const userId = socket.userId;
     userSocketMap[userId] = socket.id;
@@ -31,7 +31,7 @@ io.on("connection", (socket) => {
     io.emit("getOnlineUsers", Object.keys(userSocketMap));
 
     socket.on("disconnect", () => {
-        console.log(`User @${socket.user.tag} deconnected`);
+        console.log(`[${new Date().toLocaleString()}] User @${socket.user.tag} deconnected`);
         delete userSocketMap[userId];
         io.emit("getOnlineUsers", Object.keys(userSocketMap));
     });

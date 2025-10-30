@@ -5,7 +5,7 @@ import { io, getReceiverSocketId } from "../lib/socket.js";
 
 export const getAllContacts = async (req, res) => {
     try {
-        const loggedUserId = req.User._id;
+        const loggedUserId = req.user._id;
         const filteredUsers = await User.find({ _id: { $ne: loggedUserId } }).select("-password");
 
         res.status(200).json(filteredUsers);
