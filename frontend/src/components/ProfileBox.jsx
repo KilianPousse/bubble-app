@@ -19,7 +19,7 @@ function ProfileBox({ onProfileClick }) {
             <div className="flex items-center justify-between">
                 <div className="flex p-4 items-center gap-4 w-full">
                     <button 
-                        className="flex items-center gap-4 w-full flex-1 min-w-0 hover:bg-blue-500/20 transition-all duration-200 rounded-xl p-2 -ml-2 focus:outline-none focus:ring-2 focus:ring-blue-500/50 group"
+                        className="flex items-center gap-4 w-full flex-1 min-w-0 hover:bg-slate-600/30 transition-all duration-200 rounded-xl p-2 -ml-2 focus:outline-none focus:ring-2 focus:ring-blue-500/50 group"
                         onClick={handleProfile}
                     >
                         {/* Avatar */}
@@ -59,7 +59,7 @@ function ProfileBox({ onProfileClick }) {
                     <div className="flex gap-1 items-center">
                         {/* Settings */}
                         <button 
-                            className="text-slate-300 hover:text-white hover:bg-blue-500/20 transition-all duration-200 p-2 rounded-xl"
+                            className="text-slate-300 hover:text-white hover:bg-slate-600/30 transition-all duration-200 p-2 rounded-xl"
                             onClick={() => navigate("/settings")}
                         >
                             <SettingsIcon size={22} />

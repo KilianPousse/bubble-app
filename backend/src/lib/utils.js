@@ -31,6 +31,7 @@ export const createJsonUserResponse = (message, user) => {
             email: user.email,
             avatar: user.avatar,
             bio: user.bio,
+            friends: user.friends,
             createdAt: user.createdAt,
         },
     };

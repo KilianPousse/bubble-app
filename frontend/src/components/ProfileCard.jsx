@@ -8,7 +8,7 @@ function ProfileCard({ user, onClose }) {
     const navigate = useNavigate();
 
     return (
-        <div className="bg-slate-800/60 backdrop-blur-lg rounded-2xl p-8 shadow-2xl w-96 mx-4">
+        <div className="bg-slate-800 backdrop-blur-lg rounded-2xl p-8 shadow-2xl w-96 mx-4">
             <div className="flex justify-end mb-6">
                 {/* Close Button */}
                 <button

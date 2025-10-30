@@ -3,8 +3,10 @@ import path from 'path';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 
-import authRoutes from './routes/auth.route.js'
-import messageRoutes from './routes/message.route.js'
+import authRoutes from './routes/auth.route.js';
+import messageRoutes from './routes/message.route.js';
+import friendsRoutes from './routes/friends.route.js';
+import usersRoutes from './routes/users.route.js';
 import { connectDB } from './lib/db.js';
 import { ENV } from './lib/env.js';
 import { app, server } from './lib/socket.js';
@@ -22,6 +24,8 @@ app.use(cookieParser());
 
 app.use("/api/auth", authRoutes); 
 app.use("/api/messages", messageRoutes);
+app.use("/api/friends", friendsRoutes);
+app.use("/api/users", usersRoutes);
 
 if(ENV.NODE_ENV == "production") {
     app.use(express.static(path.join(__dirname, "../frontend/dist")))
