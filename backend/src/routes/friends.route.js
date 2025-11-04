@@ -4,7 +4,9 @@ import { arcjetProtection } from '../middlewares/arcjet.middleware.js';
 
 import {
     getFriendsList,
-    addFriend,
+    sendFriendRequest,
+    acceptFriendRequest,
+    rejectFriendRequest,
     deleteFriend,
 } from '../controllers/friends.controller.js'
 
@@ -13,7 +15,9 @@ const router = express.Router();
 router.use(arcjetProtection, protectRoute);
 
 router.get("/list", getFriendsList);
-router.post("/add/:id", addFriend);
+router.post("/request/:id", sendFriendRequest);
+router.post("/accept/:id", acceptFriendRequest);
+router.post("/reject/:id", rejectFriendRequest);
 router.delete("/delete/:id", deleteFriend);
 
 export default router;

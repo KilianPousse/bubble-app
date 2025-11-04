@@ -1,13 +1,19 @@
 import { useState, useEffect } from "react";
-import { useFriendStore } from "../store/useFriendStore";
-import { apiClient } from "../lib/axios";
-import Avatar from "./Avatar";
-import { AddFriendIcon } from "./icons";
-import { useAuthStore } from "../store/useAuthStore";
+import { useFriendStore } from "../../store/useFriendStore";
+import { apiClient } from "../../lib/axios";
+import Avatar from "../Avatar";
+import { AddFriendIcon } from "../icons";
+import { useAuthStore } from "../../store/useAuthStore";
 
-function AddFriendModal({ onClose }) {
+function AddFriendModal() {
   const { authUser } = useAuthStore();
-  const { addToFriendsList, friendActionLoadingId, friendsList } = useFriendStore();
+  const { 
+    friendsList, 
+    sentRequests,
+    isFriendActionLoading, 
+    sendFriendRequest,
+  } = useFriendStore();
+
   const [search, setSearch] = useState("");
   const [users, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -16,11 +22,8 @@ function AddFriendModal({ onClose }) {
     try {
       setIsLoading(true);
       const res = await apiClient.get(`/users/search?query=${search}`);
-      const filtered = res.data.filter(
-        (user) => !friendsList.some((friend) => friend._id === user._id || authUser._id === user._id)
-      );
-      setUsers(filtered);
-    } catch (error) {
+      setUsers(res.data);
+    } catch(error) {
       console.error(error);
     } finally {
       setIsLoading(false);
@@ -28,30 +31,35 @@ function AddFriendModal({ onClose }) {
   };
 
   useEffect(() => {
-    if (search.trim().length > 0) {
+    if(search.trim().length > 0) {
       handleSearch();
     } else {
       setUsers([]);
     }
-  }, [search, friendsList]);
+  }, [search, friendsList, sentRequests]);
+
+  const renderStatus = (user) => {
+    if(user.tag === authUser.tag) return <span className="bg-slate-600 px-3 py-0.5 mx-2 rounded-3xl text-[10px] text-slate-300">You</span>;
+    if(friendsList.some(friend => friend._id === user._id)) return <span className="bg-slate-600 px-3 py-0.5 mx-2 rounded-3xl text-[10px] text-slate-300">Friend</span>;
+    if(sentRequests.some(f => f._id === user._id)) return <span className="bg-slate-600 px-3 py-0.5 mx-2 rounded-3xl text-[10px] text-slate-300">Request Sent</span>;
+    return null;
+  }
+
+  const isButtonDisabled = (user) => {
+    return user.tag === authUser.tag
+      || friendsList.some(friend => friend._id === user._id)
+      || sentRequests.some(f => f._id === user._id);
+  }
 
   return (
-    <div className="fixed inset-0 flex justify-center items-center">
-      <div className="bg-slate-800 backdrop-blur-lg rounded-2xl p-8 shadow-2xl w-[400px] max-h-[80vh] overflow-y-auto">
+    <div className="min-w-[24rem]">
         {/* Header */}
         <div className="flex justify-between items-center mb-6">
           <h3 className="text-white font-bold text-xl flex items-center gap-2">
             <AddFriendIcon className="w-6 h-6" />
             Add a Friend
           </h3>
-          <button
-            onClick={onClose}
-            className="text-red-600 hover:text-red-700 hover:bg-red-600/20 border border-red-600 transition-all duration-200 p-2 rounded-lg"
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
+          
         </div>
 
         {/* Search input */}
@@ -86,22 +94,23 @@ function AddFriendModal({ onClose }) {
                 <div className="flex items-center gap-3">
                   <Avatar size={50} user={user} />
                   <div className="max-w-[180px]">
-                    <p className="text-white font-medium truncate">{user.username}</p>
+                    <p className="text-white font-medium truncate">
+                      {user.username} {renderStatus(user)}
+                    </p>
                     <p className="text-slate-400 text-sm truncate">@{user.tag}</p>
                   </div>
                 </div>
                 <button
-                  disabled={friendActionLoadingId === user._id}
-                  onClick={() => addToFriendsList(user._id)}
+                  disabled={isButtonDisabled(user)}
+                  onClick={() => {sendFriendRequest(user._id)}}
                   className="px-4 py-2 bg-sky-500 hover:bg-sky-600 text-white rounded-lg font-medium disabled:bg-slate-600 disabled:text-slate-400 transition-all duration-200"
                 >
-                  {friendActionLoadingId === user._id ? <span className="loading"/> : <AddFriendIcon />}
+                  {isFriendActionLoading ? <span className="loading"/> : <AddFriendIcon />}
                 </button>
               </div>
             ))
           )}
         </div>
-      </div>
     </div>
   );
 }

@@ -1,6 +1,8 @@
 import jwt from 'jsonwebtoken';
 import { ENV } from './env.js';
 
+import User from '../models/User.js';
+
 export const generateToken = (userId, res) => {
     const { JWT_SECRET } = ENV;
     if(!JWT_SECRET) {
@@ -36,3 +38,14 @@ export const createJsonUserResponse = (message, user) => {
         },
     };
 }
+
+export const clearFriendRequests = async (userId1, userId2) => {
+    await Promise.all([
+        User.findByIdAndUpdate(userId1, {
+            $pull: { friendRequests: userId2, sentRequests: userId2 },
+        }),
+        User.findByIdAndUpdate(userId2, {
+            $pull: { friendRequests: userId1, sentRequests: userId1 },
+        }),
+    ]);
+};

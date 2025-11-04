@@ -1,25 +1,14 @@
 import { useNavigate } from "react-router-dom";
-import { useAuthStore } from "../store/useAuthStore";
-import Avatar from "./Avatar";
+import { useAuthStore } from "../../store/useAuthStore"
+import Avatar from "../Avatar";
 
-function ProfileCard({ user, onClose }) {
+function ProfileCardModal({ user }) {
     const currentUser = user;
     const { authUser } = useAuthStore();
     const navigate = useNavigate();
 
     return (
-        <div className="bg-slate-800 backdrop-blur-lg rounded-2xl p-8 shadow-2xl w-96 mx-4">
-            <div className="flex justify-end mb-6">
-                {/* Close Button */}
-                <button
-                    onClick={onClose}
-                    className="text-red-600 hover:text-red-700 hover:bg-red-600/20 border border-red-600 transition-all duration-200 p-2 rounded-lg"
-                >
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </div>
+        <div className="min-w-[24rem]">
             
             {/* Profile Content */}
             <div className="flex flex-col items-center gap-6">
@@ -95,7 +84,7 @@ function ProfileCard({ user, onClose }) {
                 {/* Buttons */}
                 <div className="flex gap-4 pt-6 w-full">
                     {
-                        authUser?.id === currentUser.id ?
+                        authUser?.tag === currentUser.tag ?
                         (
                             <button 
                                 className="w-full bg-sky-500 hover:bg-sky-600 text-white font-medium py-2 rounded-lg transition disabled:opacity-70"
@@ -113,8 +102,8 @@ function ProfileCard({ user, onClose }) {
                     }
                 </div>
             </div>
-        </div>
+         </div>
     );
 }
 
-export default ProfileCard;
+export default ProfileCardModal;

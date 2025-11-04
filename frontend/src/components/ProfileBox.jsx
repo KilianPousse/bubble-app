@@ -2,17 +2,12 @@ import { useAuthStore } from "../store/useAuthStore";
 import { useNavigate } from "react-router-dom";
 import Avatar from "./Avatar";
 import { SettingsIcon, LogoutIcon } from "./icons";
+import { useModal } from "../context/ModalContext";
 
-function ProfileBox({ onProfileClick }) {
+function ProfileBox() {
     const { authUser, logout } = useAuthStore();
     const navigate = useNavigate();
-
-    const handleProfile = (e) => {
-        e.preventDefault();
-        if (onProfileClick) {
-            onProfileClick();
-        }
-    };
+    const { openModal } = useModal();
 
     return (
         <div className="border-b border-gray-600/30 backdrop-blur-sm">
@@ -20,7 +15,7 @@ function ProfileBox({ onProfileClick }) {
                 <div className="flex p-4 items-center gap-4 w-full">
                     <button 
                         className="flex items-center gap-4 w-full flex-1 min-w-0 hover:bg-slate-600/30 transition-all duration-200 rounded-xl p-2 -ml-2 focus:outline-none focus:ring-2 focus:ring-blue-500/50 group"
-                        onClick={handleProfile}
+                        onClick={() => openModal('profile-card', { user: authUser })}
                     >
                         {/* Avatar */}
                         <div className="relative">
