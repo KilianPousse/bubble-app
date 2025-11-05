@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import PageTitle from "./TitlePage";
-import { LoaderIcon } from "./icons";
+import { LoaderIcon } from "../lib/icons";
 
 function PageLoader() {
   const [dots, setDots] = useState(0);

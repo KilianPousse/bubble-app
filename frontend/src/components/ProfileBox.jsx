@@ -1,7 +1,7 @@
 import { useAuthStore } from "../store/useAuthStore";
 import { useNavigate } from "react-router-dom";
 import Avatar from "./Avatar";
-import { SettingsIcon, LogoutIcon } from "./icons";
+import { SettingsIcon, LogoutIcon } from "../lib/icons";
 import { useModal } from "../context/ModalContext";
 
 function ProfileBox() {

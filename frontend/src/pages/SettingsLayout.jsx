@@ -5,7 +5,7 @@ import {
   SecurityIcon,
   NotificationIcon,
   SettingsIcon,
-} from "../components/icons";
+} from "../lib/icons";
 import PageTitle from "../components/TitlePage";
 
 const categories = [

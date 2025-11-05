@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useFriendStore } from "../store/useFriendStore";
 import Avatar from "./Avatar";
-import { AddFriendIcon, EnvelopeIcon, UserIcon } from "./icons";
+import { AddFriendIcon, EnvelopeIcon, UserIcon } from "../lib/icons";
 import NotificationBadge from "./NotificationBadge";
 import { useModal } from "../context/ModalContext";
 
@@ -55,7 +55,7 @@ function FriendsList() {
         <div className="h-full overflow-y-auto custom-scrollbar">
           {friendsList.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-full text-center">
-              <div className="w-16 h-16 bg-slate-700/50 rounded-full flex items-center justify-center mb-4">
+              <div className="w-16 h-16 bg-slate-700/50 rounded-full flex items-center justify-center mt-10 mb-4">
                 <UserIcon color="#0EA5E999" />
               </div>
               <p className="text-slate-400 text-lg mb-2">No friends yet</p>

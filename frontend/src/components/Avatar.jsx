@@ -1,4 +1,4 @@
-import { AvatarIcon } from "./icons";
+import { AvatarIcon } from "../lib/icons";
 
 function Avatar({ size = 16, user = {} }) {
   const dimension = `${size}px`; 

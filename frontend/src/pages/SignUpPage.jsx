@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useAuthStore } from '../store/useAuthStore';
 import PageTitle from '../components/TitlePage';
-import { EyeIcon, EyeOffIcon } from '../components/icons';
+import { EyeIcon, EyeOffIcon } from '../lib/icons';
 import { Link } from "react-router";
 import TypingDots from "../components/TypingDots";
 

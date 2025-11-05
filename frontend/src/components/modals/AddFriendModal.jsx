@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useFriendStore } from "../../store/useFriendStore";
 import { apiClient } from "../../lib/axios";
 import Avatar from "../Avatar";
-import { AddFriendIcon } from "../icons";
+import { AddFriendIcon } from "../../lib/icons";
 import { useAuthStore } from "../../store/useAuthStore";
 
 function AddFriendModal() {
