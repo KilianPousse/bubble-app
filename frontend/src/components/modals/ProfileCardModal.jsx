@@ -1,18 +1,33 @@
 import { useNavigate } from "react-router-dom";
-import { useAuthStore } from "../../store/useAuthStore"
+import { useAuthStore } from "../../store/useAuthStore";
+import { useFriendStore } from "../../store/useFriendStore";
+import { useModal } from "../../context/ModalContext"; 
 import Avatar from "../Avatar";
 
 function ProfileCardModal({ user }) {
     const currentUser = user;
     const { authUser } = useAuthStore();
+    const { removeFromFriendsList } = useFriendStore();
+    const { openModal, closeModal } = useModal();
     const navigate = useNavigate();
+
+    const handleRemoveFriend = async ({ friendId }) => {
+        await removeFromFriendsList(friendId);
+        closeModal();
+    };
+
+    const confirmRemoveFriend = ({ friend }) => {
+        openModal("confirm", {
+            title: "Remove Friend",
+            message: `Are you sure you want to remove @${friend.tag} from your friends list?`,
+            onConfirm: () => handleRemoveFriend({ friendId: friend._id }), 
+        });
+    };
 
     return (
         <div className="min-w-[24rem]">
-            
-            {/* Profile Content */}
             <div className="flex flex-col items-center gap-6">
-                {/* Avatar with status */}
+                {/* Avatar */}
                 <div className="relative">
                     <Avatar size={100} user={currentUser} />
                     <div className="absolute -bottom-2 -right-2">
@@ -20,9 +35,8 @@ function ProfileCardModal({ user }) {
                     </div>
                 </div>
 
-                {/* User information */}
+                {/* User Info */}
                 <div className="text-center space-y-3 w-full">
-                    {/* Name & Tag */}
                     <div>
                         {currentUser.username ? (
                             <>
@@ -40,15 +54,12 @@ function ProfileCardModal({ user }) {
                         )}
                     </div>
 
-                    {/* Online status */}
                     <div className="flex items-center justify-center gap-2">
                         <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
                         <p className="text-green-400 text-base font-medium">Online</p>
                     </div>
 
-                    {/* Additional information */}
                     <div className="pt-6 border-t border-gray-600/30 space-y-4">
-                        {/* Bio */}
                         {currentUser.bio ? (
                             <div className="text-left">
                                 <p className="text-slate-400 text-sm uppercase tracking-wider mb-2 font-semibold">BIO</p>
@@ -65,7 +76,6 @@ function ProfileCardModal({ user }) {
                             </div>
                         )}
 
-                        {/* Date of creation */}
                         {currentUser.createdAt && (
                             <div className="text-left">
                                 <p className="text-slate-400 text-sm uppercase tracking-wider mb-2 font-semibold">MEMBER SINCE</p>
@@ -83,26 +93,27 @@ function ProfileCardModal({ user }) {
 
                 {/* Buttons */}
                 <div className="flex gap-4 pt-6 w-full">
-                    {
-                        authUser?.tag === currentUser.tag ?
-                        (
-                            <button 
-                                className="w-full bg-sky-500 hover:bg-sky-600 text-white font-medium py-2 rounded-lg transition disabled:opacity-70"
-                                onClick={() => navigate("/settings/user")}
-                            >
-                                Edit Profile
-                            </button>
-                        ) : (
-                            <button 
-                                className="w-full bg-sky-500 hover:bg-sky-600 text-white font-medium py-2 rounded-lg transition disabled:opacity-70"
-                            >
-                                Send Message
-                            </button>
-                        )
-                    }
+                    {authUser?.tag === currentUser.tag ? (
+                        <button 
+                            className="w-full bg-sky-500 hover:bg-sky-600 text-white font-medium py-2 rounded-lg transition disabled:opacity-70"
+                            onClick={() => { 
+                                closeModal();
+                                navigate("/settings/user");
+                            }}
+                        >
+                            Edit Profile
+                        </button>
+                    ) : (
+                        <button 
+                            className="w-full bg-sky-500 hover:bg-sky-600 text-white font-medium py-2 rounded-lg transition disabled:opacity-70"
+                            onClick={() => confirmRemoveFriend({ friend: currentUser })}
+                        >
+                            Remove Friend
+                        </button>
+                    )}
                 </div>
             </div>
-         </div>
+        </div>
     );
 }
 

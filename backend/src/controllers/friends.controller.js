@@ -25,7 +25,7 @@ export const getFriendsList = async (req, res) => {
     }
 };
 
-export const deleteFriend = async (req, res) => {
+export const removeFriend = async (req, res) => {
     try {
         const user = req.user;
         const { id: friendId } = req.params;

@@ -71,23 +71,6 @@ export const useFriendStore = create((set, get) => ({
         }
     },
 
-    /*addToFriendsList: async (friendId) => {
-        set({ isFriendActionLoading: true });
-        try {
-            const res = await apiClient.post(`/friends/add/${friendId}`);
-            toast.success(res.data.message || "Friend added successfully");
-            await get().getFriendsList();
-        } 
-        catch(error) {
-            toast.error(error.response?.data?.message || "Failed to add friend.");
-        } 
-        finally {
-            set({ isFriendActionLoading: false });
-        }
-    },*/
-
-
-
     removeFromFriendsList: async (friendId) => {
         set({ isFriendActionLoading: true });
         try {
