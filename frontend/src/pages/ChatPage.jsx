@@ -6,8 +6,6 @@ import TabSwitch from '../components/TabSwitch';
 import FriendsList from '../components/FriendsList';
 import GroupsList from '../components/GroupsLIst';
 
-import Modal from '../components/modals/Modal';
-
 function ChatPage() {
     const { activeTab } = useChatStore();
 
@@ -33,9 +31,6 @@ function ChatPage() {
             <main className="ml-96 h-full">
                 
             </main>
-
-
-            <Modal />
         </div>
     );
 }

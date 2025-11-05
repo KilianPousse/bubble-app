@@ -1,23 +1,24 @@
-import React, { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState } from 'react';
 
 const ModalContext = createContext();
 
 export function ModalProvider({ children }) {
-    const [modalType, setModalType] = useState(null);
-    const [modalProps, setModalProps] = useState({}); 
+    const [modals, setModals] = useState([]);
 
     const openModal = (type, props = {}) => {
-        setModalType(type);
-        setModalProps(props);
+        setModals((prev) => [...prev, { type, props }]);
     };
 
     const closeModal = () => {
-        setModalType(null);
-        setModalProps({});
+        setModals((prev) => prev.slice(0, -1));
+    };
+
+    const closeAllModals = () => {
+        setModals([]);
     };
 
     return (
-        <ModalContext.Provider value={{ modalType, modalProps, openModal, closeModal }}>
+        <ModalContext.Provider value={{ modals, openModal, closeModal, closeAllModals }}>
             {children}
         </ModalContext.Provider>
     );

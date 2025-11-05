@@ -4,6 +4,7 @@ import { Toaster } from "react-hot-toast";
 import AppRouter  from "./router";
 
 import PageLoader from "./components/PageLoader";
+import Modal from "./components/modals/Modal";
 
 function App() {
   const { checkAuth, isCheckingAuth, authUser } = useAuthStore();
@@ -20,6 +21,8 @@ function App() {
      justify-center overflow-hidden">
 
       <AppRouter authUser={authUser} /> 
+
+      <Modal />
 
       <Toaster 
         position="top-right" 

@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { useAuthStore } from "../../store/useAuthStore";
+import { useModal } from "../../context/ModalContext";
 import Avatar from "../Avatar";
 
 function UserSettings() {
     const { authUser, updateProfile } = useAuthStore();
+    const { openModal, closeModal } = useModal();
     const [username, setUsername] = useState(authUser.username);
     const [bio, setBio] = useState(authUser.bio || "");
     const [password, setPassword] = useState("");
@@ -64,9 +66,17 @@ function UserSettings() {
         updateProfile({ password: password });
     };
 
-    const handleAvatarRemove = (e) => {
-        e.preventDefault();
+    const confirmAvatarRemove = () => {
+        openModal("confirm", {
+            title: "Remove Friend",
+            message: "Are you sure you want to delete your current avatar?",
+            onConfirm: () => handleAvatarRemove(), 
+        });
+    };
+
+    const handleAvatarRemove = () => {
         updateProfile({ avatar: "" });
+        closeModal();
     };
 
     return (
@@ -106,7 +116,7 @@ function UserSettings() {
                         </button>
                         <button 
                             className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white font-medium rounded-lg transition-colors"
-                            onClick={handleAvatarRemove}
+                            onClick={confirmAvatarRemove}
                         >
                             Remove
                         </button>
