@@ -3,19 +3,6 @@ import User from "../models/User.js";
 import cloudinary from "../lib/cloudinary.js";
 import { io, getReceiverSocketId } from "../lib/socket.js";
 
-export const getAllContacts = async (req, res) => {
-    try {
-        const loggedUserId = req.user._id;
-        const filteredUsers = await User.find({ _id: { $ne: loggedUserId } }).select("-password");
-
-        res.status(200).json(filteredUsers);
-    } 
-    catch(error) {
-        console.error("Error in get all contacts controller:", error);
-        res.status(500).json({ message: "Server error" })
-    }
-};
-
 export const getMessagesByUserId = async (req, res) => {
     try {
         const myId = req.user._id;
@@ -80,37 +67,6 @@ export const sendMessage = async (req, res) => {
     } 
     catch(error) {
         console.error("Error in send message controller:", error.message);
-        res.status(500).json({ error: "Internal server error" })
-    }
-};
-
-export const getChatPartners = async (req, res) => {
-    try {
-        const loggedUserId = req.user._id;
-
-        const messages = await Message.find({
-            $or: [
-                { senderId: loggedUserId },
-                { receiverId: loggedUserId },
-            ],
-        });
-
-        const chatPartnerIds = [
-            ...new Set(
-                messages.map((msg) =>
-                    msg.senderId.toString() == loggedUserId.toString()
-                        ? msg.receiverId.toString()
-                        : msg.senderId.toString()
-                )
-            ),
-        ];
-
-        const chatPartners = await User.find({ _id: { $in: chatPartnerIds } }).select("-password");
-
-        res.status(200).json(chatPartners);
-    } 
-    catch(error) {
-        console.error("Error in get chat partners controller:", error.message);
         res.status(500).json({ error: "Internal server error" })
     }
 };
