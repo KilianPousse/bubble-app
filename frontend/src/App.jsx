@@ -8,7 +8,7 @@ import Modal from "./components/modals/Modal";
 
 function App() {
   const { checkAuth, isCheckingAuth, authUser } = useAuthStore();
-  console.log("Auth User:", authUser);
+  //console.log("Auth User:", authUser);
 
   useEffect(() => {
     checkAuth();

@@ -10,12 +10,16 @@ function FriendsList() {
     friendsList,
     friendRequests,
     loadFriendsList,
+    initSocketListeners,
   } = useFriendStore();
   const { openModal } = useModal();
 
   useEffect(() => {
     loadFriendsList();
-  }, [loadFriendsList]);
+    initSocketListeners();
+  }, [loadFriendsList, initSocketListeners]);
+
+  console.log("friends:", friendsList);
 
   return (
     <div className="bg-[#182234] backdrop-blur-lg h-full flex flex-col">

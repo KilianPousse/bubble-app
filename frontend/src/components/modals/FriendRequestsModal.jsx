@@ -1,13 +1,14 @@
 import { useEffect } from "react";
 import { useFriendStore } from "../../store/useFriendStore";
 import Avatar from "../Avatar";
+import { CheckIcon, CrossIcon } from "../../lib/icons";
 
 function FriendRequestsModal() {
   const { friendRequests, isFriendActionLoading, acceptFriendRequest, rejectFriendRequest, loadFriendsList } = useFriendStore();
 
   useEffect(() => {
     loadFriendsList();
-  }, []);
+  }, [loadFriendsList]);
 
   return (
     <div className="min-w-[24rem]">
@@ -43,16 +44,16 @@ function FriendRequestsModal() {
                 <button
                   disabled={isFriendActionLoading}
                   onClick={() => acceptFriendRequest(request._id)}
-                  className="px-4 py-2 bg-sky-500 hover:bg-sky-600 text-white rounded-lg font-medium disabled:bg-slate-600 disabled:text-slate-400 transition-all duration-200"
+                  className="p-2 bg-sky-500 hover:bg-sky-600 text-white rounded-lg font-medium disabled:bg-slate-600 disabled:text-slate-400 transition-all duration-200"
                 >
-                  {isFriendActionLoading ? <span className="loading" /> : "Accept"}
+                  {isFriendActionLoading ? <span className="loading" /> : <CheckIcon />}
                 </button>
                 <button
                   disabled={isFriendActionLoading}
                   onClick={() => rejectFriendRequest(request._id)}
-                  className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg font-medium disabled:bg-slate-600 disabled:text-slate-400 transition-all duration-200"
+                  className="p-2 bg-red-500 hover:bg-red-600 text-white rounded-lg font-medium disabled:bg-slate-600 disabled:text-slate-400 transition-all duration-200"
                 >
-                  {isFriendActionLoading ? <span className="loading" /> : "Reject"}
+                  {isFriendActionLoading ? <span className="loading" /> : <CrossIcon />}
                 </button>
               </div>
             </div>

@@ -38,14 +38,3 @@ export const createJsonUserResponse = (message, user) => {
         },
     };
 }
-
-export const clearFriendRequests = async (userId1, userId2) => {
-    await Promise.all([
-        User.findByIdAndUpdate(userId1, {
-            $pull: { friendRequests: userId2, sentRequests: userId2 },
-        }),
-        User.findByIdAndUpdate(userId2, {
-            $pull: { friendRequests: userId1, sentRequests: userId1 },
-        }),
-    ]);
-};

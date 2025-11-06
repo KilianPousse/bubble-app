@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import { useFriendStore } from "../../store/useFriendStore";
-import { apiClient } from "../../lib/axios";
 import Avatar from "../Avatar";
 import { AddFriendIcon } from "../../lib/icons";
 import { useAuthStore } from "../../store/useAuthStore";
+import { useUserStore } from "../../store/useUserStore";
 
 function AddFriendModal() {
   const { authUser } = useAuthStore();
+  const { findUsersByTagOrName } = useUserStore();
   const { 
     friendsList, 
     sentRequests,
@@ -21,11 +22,13 @@ function AddFriendModal() {
   const handleSearch = async () => {
     try {
       setIsLoading(true);
-      const res = await apiClient.get(`/users/search?query=${search}`);
-      setUsers(res.data);
-    } catch(error) {
+      const result = await findUsersByTagOrName(search);
+      setUsers(result);
+    } 
+    catch(error) {
       console.error(error);
-    } finally {
+    } 
+    finally {
       setIsLoading(false);
     }
   };
