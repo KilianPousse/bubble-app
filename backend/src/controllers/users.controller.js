@@ -1,4 +1,5 @@
 import User from "../models/User.js";
+import { getAllOnlineUsersId } from "../lib/socket.js"; 
 
 export const getUser = async (req, res) => {
     try {
@@ -40,5 +41,16 @@ export const searchUsers = async (req, res) => {
   } catch (error) {
     console.error("Error in searchUsers controller:", error);
     res.status(500).json({ message: "Server error" });
+  }
+};
+
+export const getAllOnlineUsers = async (req, res) => {
+  try {
+    const users = getAllOnlineUsersId();
+    res.status(200).json(users);
+  } 
+  catch(error) {
+    console.error("Error fetching online users:", error);
+    res.status(500).json({ message: "Internal Server Error" });
   }
 };

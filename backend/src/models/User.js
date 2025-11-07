@@ -29,6 +29,11 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: "",
     },
+    status: {
+        type: String,
+        enum: ["online", "offline", "busy"],
+        default: "online",
+    },
     bio: {
         type: String,
         default: "",

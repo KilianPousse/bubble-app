@@ -22,6 +22,10 @@ export function getReceiverSocketId(userId) {
     return userSocketMap[userId];
 }
 
+export function getAllOnlineUsersId() {
+    return Object.keys(userSocketMap);
+}
+
 io.on("connection", (socket) => {
     console.log(`[${new Date().toLocaleString()}] User @${socket.user.tag} connected`);
 

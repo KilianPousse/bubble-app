@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Avatar from "./Avatar";
 import { SettingsIcon, LogoutIcon } from "../lib/icons";
 import { useModal } from "../context/ModalContext";
+import Status from "./Status";
 
 function ProfileBox() {
     const { authUser, logout } = useAuthStore();
@@ -43,10 +44,7 @@ function ProfileBox() {
                                 )}
                             </div>
                             
-                            <div className="flex items-center gap-2 mt-1">
-                                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                                <p className="text-green-400 text-xs font-medium">Online</p>
-                            </div>
+                            <Status user={authUser} text={true} size={16} />
                         </div>
                     </button>
 

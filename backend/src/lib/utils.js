@@ -24,17 +24,10 @@ export const generateToken = (userId, res) => {
 };
 
 export const createJsonUserResponse = (message, user) => {
+    const userObj = user.toObject ? user.toObject() : user;
+    delete userObj.password;
     return {
-        message: message,
-        user: {
-            _id: user._id,
-            tag: user.tag,
-            username: user.username,
-            email: user.email,
-            avatar: user.avatar,
-            bio: user.bio,
-            friends: user.friends,
-            createdAt: user.createdAt,
-        },
+        message,
+        user: userObj,
     };
-}
+};

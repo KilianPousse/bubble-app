@@ -1,9 +1,9 @@
 import { useEffect } from "react";
-import { useFriendStore } from "../store/useFriendStore";
-import Avatar from "./Avatar";
-import { AddFriendIcon, EnvelopeIcon, UserIcon } from "../lib/icons";
-import NotificationBadge from "./NotificationBadge";
-import { useModal } from "../context/ModalContext";
+import { useFriendStore } from "../../store/useFriendStore";
+import { AddFriendIcon, EnvelopeIcon, UserIcon } from "../../lib/icons";
+import NotificationBadge from "../NotificationBadge";
+import { useModal } from "../../context/ModalContext";
+import FriendsListItem from "./FriendListItem";
 
 function FriendsList() {
   const {
@@ -18,8 +18,6 @@ function FriendsList() {
     loadFriendsList();
     initSocketListeners();
   }, [loadFriendsList, initSocketListeners]);
-
-  console.log("friends:", friendsList);
 
   return (
     <div className="bg-[#182234] backdrop-blur-lg h-full flex flex-col">
@@ -70,32 +68,7 @@ function FriendsList() {
           ) : (
             <div className="space-y-2 pb-3 mx-2">
               {friendsList.map((friend) => (
-                <button 
-                  key={friend._id} 
-                  onClick={() => openModal('profile-card', { user: friend })}
-                  className="flex items-center gap-4 px-4 py-1.5 rounded-2xl hover:bg-slate-700/30 transition-all duration-200 cursor-pointer group w-full text-left"
-                >
-                  <div className="relative">
-                    <Avatar size={52} user={friend} />
-                    <div className="absolute -bottom-1 -right-1">
-                      <div className="w-4 h-4 bg-green-400 rounded-full border-2 border-slate-800"></div>
-                    </div>
-                  </div>
-                  
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2">
-                      <p className="text-white font-semibold truncate">
-                        {friend.username || friend.tag}
-                      </p>
-                    </div>
-                    <p className="text-slate-400 text-sm truncate">@{friend.tag}</p>
-                  </div>
-
-                  {/* Online Status Indicator */}
-                  <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                  </div>
-                </button>
+                <FriendsListItem friend={friend} />
               ))}
             </div>
           )}

@@ -87,6 +87,17 @@ export const useAuthStore = create((set, get) => ({
         }
     },
 
+    updateStatus: async (status) => {
+        try {
+            const res = await apiClient.put("/auth/status", { status });
+            console.log(res.data);
+            set({ authUser: res.data.user });
+        } 
+        catch(error) {
+            console.error("Error in update status:", error);
+        }
+    },
+
     connectSocket: () => {
         const { authUser } = get();
         if(!authUser || get().socket?.connected) {

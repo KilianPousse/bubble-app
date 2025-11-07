@@ -3,7 +3,7 @@ import { useChatStore } from '../store/useChatStore';
 import PageTitle from "../components/TitlePage";
 import ProfileBox from "../components/ProfileBox";
 import TabSwitch from '../components/TabSwitch';
-import FriendsList from '../components/FriendsList';
+import FriendsList from '../components/friendsList/FriendsList';
 import GroupsList from '../components/GroupsLIst';
 
 function ChatPage() {

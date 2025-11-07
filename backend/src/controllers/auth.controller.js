@@ -100,7 +100,7 @@ export const updateProfile = async (req, res) => {
     try {
         const { username, avatar, password, bio } = req.body;
 
-        if(username == null && avatar == null && !password && bio == null) {
+        if(username == null && avatar == null && !password && !status && bio == null) {
             return res.status(400).json({ message: "Nothing to update"});
         }
 
@@ -156,8 +156,45 @@ export const updateProfile = async (req, res) => {
         }
 
         return res.status(200).json(createJsonUserResponse("Profile updated successfully", updatedUser));
-    } catch (error) {
+    } 
+    catch(error) {
         console.error("Error in update profile:", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+};
+
+export const updateStatus = async (req, res) => {
+    try {
+        const { status } = req.body;
+
+        const userId = req.user._id;
+        if(!userId) {
+            return res.status(401).json({ message: "Unauthorized" });
+        }
+
+        // Status update + validate
+        if(!status) {
+            return res.status(400).json({ message: "Nothing to update"});
+        }
+        
+        const validStatuses = ["online", "offline", "busy"];
+        if(!validStatuses.includes(status)) {
+            throw new Error("Invalid status");
+        }
+
+        const updatedUser = await User.findByIdAndUpdate(userId, 
+            { status }, 
+            { new: true, runValidators: true }
+        ).select('-password');
+
+        if(!updatedUser) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        return res.status(200).json(createJsonUserResponse("Status updated successfully", updatedUser));
+    } 
+    catch(error) {
+        console.error("Error in update status:", error);
         res.status(500).json({ message: "Internal server error" });
     }
 };

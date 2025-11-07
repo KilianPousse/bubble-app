@@ -3,10 +3,12 @@ import { useAuthStore } from "../../store/useAuthStore";
 import { useFriendStore } from "../../store/useFriendStore";
 import { useModal } from "../../context/ModalContext"; 
 import Avatar from "../Avatar";
+import Status from "../Status";
+import StatusDropdown from "../StatusDropdown";
 
 function ProfileCardModal({ user }) {
     const currentUser = user;
-    const { authUser } = useAuthStore();
+    const { authUser, updateStatus } = useAuthStore();
     const { removeFromFriendsList } = useFriendStore();
     const { openModal, closeModal } = useModal();
     const navigate = useNavigate();
@@ -53,11 +55,14 @@ function ProfileCardModal({ user }) {
                             </h2>
                         )}
                     </div>
-
-                    <div className="flex items-center justify-center gap-2">
-                        <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
-                        <p className="text-green-400 text-base font-medium">Online</p>
-                    </div>
+                        <div className="flex justify-center">   
+                            {authUser?.tag === currentUser.tag ? (
+                                    <StatusDropdown user={currentUser} onChangeStatus={updateStatus} />
+                                ) : (
+                                    <Status user={currentUser} text={true} />
+                                )
+                            }
+                        </div>
 
                     <div className="pt-6 border-t border-gray-600/30 space-y-4">
                         {currentUser.bio ? (

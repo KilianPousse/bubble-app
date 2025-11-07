@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { apiClient } from "../lib/axios";
 
 export const useUserStore = create((set, get) => ({
+    allOnlineUsers: [],
 
     findUserById: async (id) => {
         if(!id) return null;
@@ -26,6 +27,17 @@ export const useUserStore = create((set, get) => ({
         catch(error) {
             console.error("Error searching users:", error.response?.data || error);
             return [];
+        }
+    },
+
+    getAllOnlineUsers: async () => {
+        try {
+            const res = await apiClient.get("/users/online");
+            console.log(res)
+            set({ allOnlineUsers: res.data });
+        } 
+        catch(error) {
+            console.error("Error:", error.response?.data || error);
         }
     },
 }));
