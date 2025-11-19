@@ -11,6 +11,6 @@ const router = express.Router();
 router.use(arcjetProtection, protectRoute);
 
 router.get("/get/:id", getMessagesByUserId);
-router.get("/send/:id", sendMessage);
+router.post("/send/:id", sendMessage);
 
 export default router;

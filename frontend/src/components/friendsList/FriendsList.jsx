@@ -4,6 +4,7 @@ import { AddFriendIcon, EnvelopeIcon, UserIcon } from "../../lib/icons";
 import NotificationBadge from "../NotificationBadge";
 import { useModal } from "../../context/ModalContext";
 import FriendsListItem from "./FriendListItem";
+import { useAuthStore } from "../../store/useAuthStore";
 
 function FriendsList() {
   const {
@@ -18,6 +19,9 @@ function FriendsList() {
     loadFriendsList();
     initSocketListeners();
   }, [loadFriendsList, initSocketListeners]);
+
+  const { onlineUsers } = useAuthStore();
+  console.log("Online Users:", onlineUsers);
 
   return (
     <div className="bg-[#182234] backdrop-blur-lg h-full flex flex-col">
@@ -67,8 +71,8 @@ function FriendsList() {
             </div>
           ) : (
             <div className="space-y-2 pb-3 mx-2">
-              {friendsList.map((friend) => (
-                <FriendsListItem friend={friend} />
+              {friendsList.map((friend, index) => (
+                <FriendsListItem friend={friend} index={index} />
               ))}
             </div>
           )}

@@ -5,6 +5,7 @@ import { useModal } from "../../context/ModalContext";
 import Avatar from "../Avatar";
 import Status from "../Status";
 import StatusDropdown from "../StatusDropdown";
+import { useChatStore } from "../../store/useChatStore";
 
 function ProfileCardModal({ user }) {
     const currentUser = user;
@@ -15,6 +16,7 @@ function ProfileCardModal({ user }) {
 
     const handleRemoveFriend = async ({ friendId }) => {
         await removeFromFriendsList(friendId);
+        closeModal();
         closeModal();
     };
 
@@ -32,9 +34,6 @@ function ProfileCardModal({ user }) {
                 {/* Avatar */}
                 <div className="relative">
                     <Avatar size={100} user={currentUser} />
-                    <div className="absolute -bottom-2 -right-2">
-                        <div className="w-6 h-6 bg-green-400 rounded-full border-2 border-gray-800"></div>
-                    </div>
                 </div>
 
                 {/* User Info */}

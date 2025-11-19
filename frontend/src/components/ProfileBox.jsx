@@ -11,7 +11,7 @@ function ProfileBox() {
     const { openModal } = useModal();
 
     return (
-        <div className="border-b border-gray-600/30 backdrop-blur-sm">
+        <div className="border-b border-gray-600/30 backdrop-blur-sm h-[100px] items-center">
             <div className="flex items-center justify-between">
                 <div className="flex p-4 items-center gap-4 w-full">
                     <button 

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useUserStore } from "../store/useUserStore";
 
-function Status({ user = { status: "offline", _id: null }, text = true, size = 24 }) {
+function Status({ user = { status: "offline", _id: null }, size = 24 }) {
   const allOnlineUsers = useUserStore((state) => state.allOnlineUsers);
   const getAllOnlineUsers = useUserStore((state) => state.getAllOnlineUsers);
 
@@ -39,17 +39,15 @@ function Status({ user = { status: "offline", _id: null }, text = true, size = 2
         style={{ width: dotSize, height: dotSize }}
       ></div>
 
-      {text && (
-        <p
-          className={`
-            ${color === "green-400" ? "text-green-400" : color === "gray-500" ? "text-gray-500" : "text-red-400"}
-            font-medium
-            ${textSize}
-          `}
-        >
-          {label}
-        </p>
-      )}
+      <p
+        className={`
+          ${color === "green-400" ? "text-green-400" : color === "gray-500" ? "text-gray-500" : "text-red-400"}
+          font-medium
+          ${textSize}
+        `}
+      >
+        {label}
+      </p>
     </div>
   );
 }

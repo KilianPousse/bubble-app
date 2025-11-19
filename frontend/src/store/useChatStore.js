@@ -11,6 +11,8 @@ export const useChatStore = create((set, get) => ({
     isMessagesLoading: false,
     isSoundEnabled: JSON.parse(localStorage.getItem("isSoundEnabled")) === true,
 
+    setSelectedUser: (user) => set({ selectedUser: user }),
+
     toggleSound: () => {
         localStorage.setItem("isSoundEnabled", !get().isSoundEnabled);
         set({ isSoundEnabled: !get().isSoundEnabled });
@@ -20,14 +22,14 @@ export const useChatStore = create((set, get) => ({
         set({ activeTab: tab })
     },
 
-    setSelectedUser: (selectedUser) => {
-        set({ selectedUser })
+    setSelectedUser: (user) => {
+        set({ selectedUser: user })
     },
     
     getMessagesByUserId: async (userId) => {
         set({ isMessagesLoading: true });
         try {
-            const res = await apiClient.get(`/messages/${userId}`);
+            const res = await apiClient.get(`/messages/get/${userId}`);
             set({ messages: res.data });
         } 
         catch(error) {
@@ -48,7 +50,7 @@ export const useChatStore = create((set, get) => ({
             _id: tempId,
             senderId: authUser._id,
             receiverId: selectedUser._id,
-            content: messageData.content,
+            text: messageData.text,
             image: messageData.image,
             atCreate: new Date().toISOString(),
             isOptimstic: true,

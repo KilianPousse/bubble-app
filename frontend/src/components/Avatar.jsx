@@ -2,8 +2,9 @@ import { AvatarIcon } from "../lib/icons";
 
 function Avatar({ size = 16, user = {} }) {
   const dimension = `${size}px`; 
+  
 
-  if(!user.avatar) {
+  if(!user || !user.avatar) {
     return <AvatarIcon size={size} color="#cbd5e1" backgroundColor="#475569" />;
   }
 
